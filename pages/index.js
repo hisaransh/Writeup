@@ -2,39 +2,23 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Navigationbar from "../Component/Navigationbar"
 import {Container,Row,Col} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faFile, faCoffee } from '@fortawesome/free-solid-svg-icons'
 export default function Home() {
   return (
-    <>
-    <Navigationbar />
-    <div className="container">
-      <div className="row">
-        <div className="col">
-          <h6 className="title titlex">
-            Create New Projects
-          </h6>
-          <button type="button" className="btn btn-link"><FontAwesomeIcon icon={faFile} /></button>
-        </div>
-        <div className="col">
-          <h6 className="title">
-            Edit Existing Projects
-          </h6>
-        </div>
+    <div>
+      <Navigationbar />
+      <div className="container">
+        <ul>
+          <li>Document Everything!!!</li>
+          <li>Product Documentation</li>
+          <li>Software go through</li>
+          <li>Education writeups</li>
+          <li>Coding Solution</li>
+        </ul>
+          <Link href="/createOrEdit"><a>Create Here</a></Link>
       </div>
     </div>
-    <style jsx>{`
-        .container{
-          border-style:solid;
-          border-width:1px;
-          border-color:silver;
-          margin-top:20px;
-        }
-        .title{
-          color:grey;
-        }
-    `}</style>
-    </>
+  )
+}
     // <div className="container">
     //   <Head>
     //     <title>Create Next App</title>
@@ -205,5 +189,5 @@ export default function Home() {
     //     }
     //   `}</style>
     // </div>
-  )
-}
+//   )
+// }
