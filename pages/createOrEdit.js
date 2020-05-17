@@ -16,16 +16,16 @@ export default function Home() {
           </div>
           <div className="row justify-content-center align-content-center">
             <form>
-              <div class="form-group">
+              <div className="form-group mt-2">
                 <input type="text" placeholder="Project Name"></input>
               </div>
-              <div class="form-group">
+              <div className="form-group mt-2">
                 <input type="text" placeholder="Author Name"></input>
               </div>
-              <div class="form-group">
+              <div className="form-group mt-2">
                 <textarea type="text" placeholder="About project"></textarea>
               </div>
-              <button type="button" className="btn btn-primary">Create!</button>
+              <button type="button" className="btn btn-primary mt-2 mb-4">Create!</button>
             </form>
           </div>
         </div>
