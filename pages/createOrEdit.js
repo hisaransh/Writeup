@@ -30,7 +30,7 @@ export default function Home() {
           </div>
         </div>
         <div className="col">
-          <h6 className="title">
+          <h6 className="title mt-2">
             Edit Existing Project
           </h6>
         </div>
