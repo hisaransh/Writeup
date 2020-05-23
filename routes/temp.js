@@ -22,7 +22,7 @@ router.post('/' , async (req,res) => {
     "authorName" : req.body.authorName,
   })
   try{
-    const savedPost = await post.save();
+    const savedPost = await Post.save();
     res.json(savedPost);
   }catch(err){
     res.json({message:err});

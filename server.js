@@ -6,6 +6,8 @@ require('dotenv/config');
 
 //Import Routes
 const tempRoute = require('./routes/temp');
+const apiRoute = require('./api/project');
+
 
 const PORT = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -24,6 +26,7 @@ nextApp.prepare().then(() => {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({extended:true}));
   server.use('/temp',tempRoute);
+  server.use('/api',apiRoute);
   server.get('*', (req,res) => {
       return handle(req,res);
   })
