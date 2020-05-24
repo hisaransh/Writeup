@@ -14,7 +14,7 @@ export default function Home() {
           <li>Education writeups</li>
           <li>Coding Solution</li>
         </ul>
-          <Link href="/createOrEdit"><a>Create Here</a></Link>
+          <Link href="/createOrEdit">Create Here</Link>
       </div>
     </div>
   )
