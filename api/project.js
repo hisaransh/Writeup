@@ -4,7 +4,7 @@ const router = express.Router()
 const Project = require('../models/writeup');
 
 //Get all the post
-router.get('/' , async (req,res) => {
+router.get('/project' , async (req,res) => {
   console.log("GET request Recieved in api");
   try{
     const posts = await Project.find();
@@ -15,7 +15,7 @@ router.get('/' , async (req,res) => {
 });
 
 //Submits  a post
-router.post('/' , async (req,res) => {
+router.post('/project' , async (req,res) => {
   console.log("Post request Recieved at api");
   console.log(req.body);
   const post = new Project({

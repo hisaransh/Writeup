@@ -1,22 +1,70 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import Navigationbar from "../Component/Navigationbar"
+import { ToastContainer, toast } from 'react-toastify';
+
+
 const url = "http://localhost:3000/api"
+
+
 export default function Home() {
   const [projectName,handleProjectName] = useState('');
   const [authorName,handleAuthorName] = useState('');
   const [aboutProject,handleAboutProject] = useState('');
+  const [existingProjects,handleExisingProject] = useState([]);
+  const [isLoading,handleisLoading] = useState(true);
+  const notifySuccess = () => toast.success("Project Created !");
 
+  function updateExistingProject(){
+    fetch("http://localhost:3000/api/project", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(response => response.json())
+    .then( (response)=>{
+      console.log(response);
+      handleExisingProject(response);
+      handleisLoading(false);
+      return;
+    })
+  }
+
+  useEffect(() => {
+
+    fetch("http://localhost:3000/api/project", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(response => response.json())
+    .then( (response)=>{
+      console.log(response);
+      handleExisingProject(response);
+      handleisLoading(false);
+      return;
+    })
+
+  }, []);
+  const listItems = existingProjects.map((ep) =>
+    <li key={ep._id}>
+      {ep.projectName}
+    </li>
+  );
   const handleSubmit = (evt) => {
       evt.preventDefault();
+      if(projectName == "")
+        return;
+      if(authorName == "")
+        return;
       var data = {
         "projectName" : projectName,
         "authorName" : authorName,
         "aboutProject" : aboutProject,
       }
       console.log(data);
-      fetch("http://localhost:3000/api", {
+      fetch("http://localhost:3000/api/project", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -30,37 +78,14 @@ export default function Home() {
         handleProjectName("");
         handleAboutProject("");
         handleAuthorName("");
+        notifySuccess();
+        updateExistingProject();
         return response.text()
       }, function(error) {
         console.log(error.message) //=> String
       })
   }
-  // const handleSubmit = (event) => {
-  //   event.preventDefault()
-    // data = {
-    //   "projectName" : projectName,
-    //   "authorName" : authorName,
-    //   "aboutProject" : aboutProject,
-    // }
-    // console.log(data);
-    // fetch("http://localhost:3000/api", {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   credentials: "same-origin"
-    // }).then(function(response) {
-    //   response.status     //=> number 100–599
-    //   response.statusText //=> String
-    //   response.headers    //=> Headers
-    //   response.url        //=> String
-    //
-    //   return response.text()
-    // }, function(error) {
-    //   error.message //=> String
-    // })
-  // }
+
   return (
     <>
     <Navigationbar />
@@ -79,7 +104,8 @@ export default function Home() {
                   type="text"
                   value={projectName}
                   onChange={(e)=>handleProjectName(e.target.value)}
-                  placeholder="Project Name">
+                  placeholder="Project Name"
+                  >
                 </input>
               </div>
               <div className="form-group mt-2">
@@ -102,11 +128,29 @@ export default function Home() {
             </form>
           </div>
         </div>
-        <div className="col">
-          <h6 className="title mt-2">
+        <div className="col d-flex flex-column justify-content-center align-content-center">
+          <div className="row justify-content-center align-content-center">
+            <h6 className="title mt-2">
             Edit Existing Project
-          </h6>
+            </h6>
+          </div>
+          <div className="row justify-content-center align-content-center">
+            <ul>{listItems}</ul>
+          </div>
         </div>
+      </div>
+      <div>
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     </div>
     <style jsx>{`

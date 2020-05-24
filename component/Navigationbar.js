@@ -7,12 +7,16 @@ const Navigationbar = () => (
     <Head>
       <title>WriteUp</title>
     </Head>
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home"><Link href="index">WriteUp</Link></Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-      </Navbar.Collapse>
-    </Navbar>
+    <nav className="navbar navbar-expand-lg navbar-light navbar-custom">
+      <a className="navbar-brand" href="#">Writeup</a>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    </div>
+</nav>
+    <style jsx>{`
+        .navbar-custom{
+          background-color:#22d1ee;
+        }
+    `}</style>
   </div>
 )
 
