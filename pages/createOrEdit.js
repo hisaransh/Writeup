@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import { useState , useEffect} from "react";
 import Navigationbar from "../Component/Navigationbar"
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,6 +10,7 @@ const url = "http://localhost:3000/api"
 
 
 export default function Home() {
+  const router = useRouter();
   const [projectName,handleProjectName] = useState('');
   const [authorName,handleAuthorName] = useState('');
   const [aboutProject,handleAboutProject] = useState('');
@@ -49,7 +51,9 @@ export default function Home() {
   }, []);
   const listItems = existingProjects.map((ep) =>
     <li key={ep._id}>
-      {ep.projectName}
+      <h6>{ep._id}{" "}
+      <Link href="/project/[pid]" as={`/project/${ep._id}`}> edit </Link>
+      </h6>
     </li>
   );
   const handleSubmit = (evt) => {

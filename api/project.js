@@ -13,6 +13,17 @@ router.get('/project' , async (req,res) => {
     res.json({message:err});
   }
 });
+router.post("/project/projectbyid", async(req,res) => {
+  let pid = req.body.pid;
+  console.log(req.body);
+  console.log("Post request for a project");
+  try{
+    const post = await Project.findById(pid);
+    res.json(post);
+  }catch(err){
+    res.json({message:err});
+  }
+})
 
 //Submits  a post
 router.post('/project' , async (req,res) => {
