@@ -1,3 +1,7 @@
+/*
+  author : @saransh
+  --------------------------------------------------------
+*/
 import Head from 'next/head'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
@@ -5,8 +9,7 @@ import { useState , useEffect} from "react";
 import Navigationbar from "../Component/Navigationbar"
 import { ToastContainer, toast } from 'react-toastify';
 
-
-const url = "http://localhost:3000/api"
+const url = "http://localhost:3000/api/"
 
 
 export default function Home() {
@@ -18,44 +21,50 @@ export default function Home() {
   const [isLoading,handleisLoading] = useState(true);
   const notifySuccess = () => toast.success("Project Created !");
 
-  function updateExistingProject(){
-    fetch("http://localhost:3000/api/project", {
+  // Following function updates the edit project list
+  function updateEditProjectList(){
+    fetch(url+"project", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
     }).then(response => response.json())
     .then( (response)=>{
-      console.log(response);
+      console.log("Updated Edit Project List ");
       handleExisingProject(response);
       handleisLoading(false);
       return;
     })
   }
 
-  useEffect(() => {
+  // Function is called only once when a component is rendered on scren
+  // to get all the existing project list to save in edit Projects
 
-    fetch("http://localhost:3000/api/project", {
+  useEffect(() => {
+    fetch(url+"project", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
     }).then(response => response.json())
     .then( (response)=>{
-      console.log(response);
+      console.log("Get all existing Projects list");
       handleExisingProject(response);
       handleisLoading(false);
       return;
     })
-
   }, []);
+
+  // Following maps the JSON object to list
   const listItems = existingProjects.map((ep) =>
     <li key={ep._id}>
-      <h6>{ep._id}{" "}
-      <Link href="/project/[pid]" as={`/project/${ep._id}`}> edit </Link>
+      <h6>{ep.projectName}{" "}
+      <Link href="/project/[pid]" as={`/project/${ep._id}`}><a> edit </a></Link>
       </h6>
     </li>
   );
+
+  // Handle Submission of Create Project form
   const handleSubmit = (evt) => {
       evt.preventDefault();
       if(projectName == "")
@@ -67,23 +76,21 @@ export default function Home() {
         "authorName" : authorName,
         "aboutProject" : aboutProject,
       }
-      console.log(data);
-      fetch("http://localhost:3000/api/project", {
+      // console.log(data);
+
+      fetch(url+"project", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json"
         },
       }).then(function(response) {
-        console.log(response.status)     //=> number 100–599
-        console.log(response.statusText) //=> String
-        console.log(response.headers)    //=> Headers
-        console.log(response.url)        //=> String
+        console.log("New Project Created and now updating edit projects list");
         handleProjectName("");
         handleAboutProject("");
         handleAuthorName("");
         notifySuccess();
-        updateExistingProject();
+        updateEditProjectList();
         return response.text()
       }, function(error) {
         console.log(error.message) //=> String

@@ -11,6 +11,10 @@ const PostSchema = mongoose.Schema({
   },
   aboutProject : {
     type:String
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now
   }
 })
 
