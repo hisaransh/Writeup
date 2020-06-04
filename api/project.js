@@ -64,13 +64,24 @@ router.post('/project/newSubheadline', async(req,res) => {
 
   try{
       const d = await Project.findOne({'_id':pid})
+      if(d == null){
+        res.json({message : "Not found"})
+        return;
+      }
       const dt = d.data;
+      if(dt == null){
+        res.json({message : "Not found"})
+        return;
+      }
       const result = dt.find( t => t._id == headlineid );
-
+      if(result == null){
+        res.json({message : "Not found"})
+        return;
+      }
       result.subheadlines.push(subdata);
-
       const post = await d.save();
       res.json({post});
+
   }catch(err){
     console.log(err);
     res.json({message:err});
