@@ -13,8 +13,6 @@ const url = "http://localhost:3000/api/"
 
 
 export default function Home({ep}) {
-  console.log("ep");
-  console.log(ep);
   const router = useRouter();
   const [projectName,handleProjectName] = useState('');
   const [authorName,handleAuthorName] = useState('');

@@ -4,25 +4,7 @@ import { useRouter } from 'next/router'
 import Navigationbar from "../../../Component/Navigationbar"
 import { useState , useEffect} from "react";
 
-function Headline({data}){
-  const [headlineData,handleHandline] = useState(data);
-  const ListofHeadline = headlineData.map( (d) =>
-    <li>
-      {d.Headline}
-    </li>
-  )
-  return (
-    <div>
-        <ul>
-          {ListofHeadline}
-        </ul>
-    </div>
-  )
-}
-
 const ProjectPage = ({projectData}) => {
-  // console.log("response from project page");
-  // console.log(response);
   const router = useRouter();
   var { pid } = router.query;
   const [project,handleProjectData] = useState(projectData);
@@ -43,7 +25,7 @@ const ProjectPage = ({projectData}) => {
             </div>
             <div className="row">
               <div className="col-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                <Headline data={project.data}/>
+                Project Headline
               </div>
               <div className="col-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                  Content
