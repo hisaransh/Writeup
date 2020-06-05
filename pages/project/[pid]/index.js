@@ -4,25 +4,54 @@ import { useRouter } from 'next/router'
 import Navigationbar from "../../../Component/Navigationbar"
 import { useState , useEffect} from "react";
 
-function Headline({data}){
-  const [headlineData,handleHandline] = useState(data);
-  const ListofHeadline = headlineData.map( (d) =>
-    <li>
-      {d.Headline}
-    </li>
-  )
-  return (
-    <div>
-        <ul>
-          {ListofHeadline}
-        </ul>
-    </div>
-  )
-}
+import Headline from './headline';
+
+// const Headline = ({projectData}) => {
+//   const [project,handleProjectData] = useState(projectData);
+//   // const listItems = existingProjects.map((ep) =>
+//   function ListHeadlines(){
+//     if(project == null || project.data == null)
+//       return (<div> Loading Soon </div>);
+//     else {
+//       function Subhead({sub}){
+//         const pdd = sub.map( (t) =>
+//           <li>{t.subheadlineName} </li>
+//         )
+//         if(sub == null)
+//           return <div> </div>
+//         return (
+//           <ul>
+//             {pdd}
+//             <input className="form-control form-control-sm" type="text" placeholder="Add" ></input>
+//             <button type="button" className="btn btn-light mt-2">Create</button>
+//           </ul>
+//         )
+//       }
+//       const pd = project.data.map( (dt) =>
+//         <li key={dt._id}>
+//           {dt.headlineName}
+//           <Subhead sub={dt.subheadlines} />
+//         </li>
+//       )
+//       return pd;
+//     }
+//   }
+//   if(project == null){
+//     return <div> Loading Soon </div>
+//   }else{
+//     return (
+//       <div>
+//         <ul><ListHeadlines /></ul>
+//         <h6>Create New Headline</h6>
+//         <input className="form-control form-control-sm" type="text" placeholder="Add" ></input>
+//         <button type="button" className="btn btn-light mt-2">Create</button>
+//       </div>
+//     )
+//   }
+// }
+
 
 const ProjectPage = ({projectData}) => {
-  // console.log("response from project page");
-  // console.log(response);
   const router = useRouter();
   var { pid } = router.query;
   const [project,handleProjectData] = useState(projectData);
@@ -42,13 +71,13 @@ const ProjectPage = ({projectData}) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                <Headline data={project.data}/>
+              <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+                <Headline projectData={project} />
               </div>
-              <div className="col-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                  Content
               </div>
-              <div className = "col-2" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className = "col-sm-2" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                 Extra
               </div>
             </div>
@@ -73,7 +102,7 @@ export async function getStaticProps({params}) {
     },
   })
   let dt = await response.json();
-  console.log("+++++++++++",dt);
+
   return { props : {projectData:dt}};
 
 }

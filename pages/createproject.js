@@ -13,8 +13,6 @@ const url = "http://localhost:3000/api/"
 
 
 export default function Home({ep}) {
-  console.log("ep");
-  console.log(ep);
   const router = useRouter();
   const [projectName,handleProjectName] = useState('');
   const [authorName,handleAuthorName] = useState('');
@@ -102,7 +100,7 @@ export default function Home({ep}) {
   return (
     <>
     <Navigationbar />
-    <div className="container-fluid">
+    <div className="container-fluid mt-3">
       <div className="row">
         <div className="col d-flex flex-column justify-content-center align-content-center">
           <div className="row justify-content-center align-content-center">

@@ -4,7 +4,6 @@ const next = require('next');
 // Body parser is used to show API request data on server
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 //Environment Variable are saved here
 require('dotenv/config');
 
@@ -16,7 +15,6 @@ const PORT = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({dev})
 
-// Connecting to database via Mongoose (A MongoDb Wrapper)
 mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true},() =>
   console.log('connected to DB!!')
 );
@@ -41,5 +39,5 @@ nextApp.prepare().then(() => {
     if(err) throw err;
     console.log('Server started at port ${PORT}')
     })
-  
+
 })
