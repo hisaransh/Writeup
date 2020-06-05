@@ -21,7 +21,7 @@ const Navigationbar = () => (
 </nav>
     <style jsx>{`
         .navbar-custom{
-          background-color:#22d1ee;
+          background-color:#30e3ca;
         }
     `}</style>
   </div>

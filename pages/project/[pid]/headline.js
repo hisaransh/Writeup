@@ -5,7 +5,7 @@ import { useState , useEffect} from "react";
 
 const Headline = ( {projectData} ) => {
   const [project,handleProjectData] = useState(projectData);
-  // const listItems = existingProjects.map((ep) =>
+  
   function ListHeadlines(){
     if(project == null || project.data == null)
       return (<div> Loading Soon </div>);
