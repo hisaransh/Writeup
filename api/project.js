@@ -41,6 +41,7 @@ router.post('/project/newHeadline' , async(req,res) => {
     const post = await Project.findById(pid);
     post.data.push(data);
     const savedPost = await post.save();
+    console.log("-----");
     console.log(savedPost);
     res.json(savedPost);
   }catch(err){

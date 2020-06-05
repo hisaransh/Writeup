@@ -71,13 +71,13 @@ const ProjectPage = ({projectData}) => {
               </div>
             </div>
             <div className="row">
-              <div className="col-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                 <Headline projectData={project} />
               </div>
-              <div className="col-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                  Content
               </div>
-              <div className = "col-2" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className = "col-sm-2" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                 Extra
               </div>
             </div>
