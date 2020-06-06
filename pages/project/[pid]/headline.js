@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const apiURL = "http://localhost:3000/api/";
 
 
-const Headline = ( {projectData} ) => {
+const Headline = ( {projectData,UpdateData} ) => {
   const [project,handleProjectData] = useState(projectData);
   const [newHeadlineTitle,handleNewHeadlineTitle] = useState('');
   const notifySuccess = () => toast.success("Headline Created !");
@@ -18,7 +18,7 @@ const Headline = ( {projectData} ) => {
       const pd = project.data.map( (dt) =>
         <li key={dt._id}>
           {dt.headlineName}
-          <Subhead sub={dt.subheadlines} />
+          <Subhead sub={dt.subheadlines} pid={project._id} headlineid={dt._id} UpdateData = {UpdateData} />
         </li>
       )
       return pd;
@@ -41,18 +41,19 @@ const Headline = ( {projectData} ) => {
     })
     .then(response => response.json())
     .then( (response)=>{
-
-      handleProjectData(response);
+      UpdateData();
       notifySuccess();
       handleNewHeadlineTitle('');
-
-      // handleNewHeadlineTitle(response);
     }, function(error) {
       console.log(error.message) //=> String
     })
-
-
   }
+  useEffect(() => {
+    console.log("Use effect was triggered");
+    handleProjectData(projectData);
+  }, [
+    projectData,
+  ]);
   if(project == null){
     return <div> Loading Soon </div>
   }else{

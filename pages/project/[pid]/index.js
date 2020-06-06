@@ -6,55 +6,29 @@ import { useState , useEffect} from "react";
 
 import Headline from './headline';
 
-// const Headline = ({projectData}) => {
-//   const [project,handleProjectData] = useState(projectData);
-//   // const listItems = existingProjects.map((ep) =>
-//   function ListHeadlines(){
-//     if(project == null || project.data == null)
-//       return (<div> Loading Soon </div>);
-//     else {
-//       function Subhead({sub}){
-//         const pdd = sub.map( (t) =>
-//           <li>{t.subheadlineName} </li>
-//         )
-//         if(sub == null)
-//           return <div> </div>
-//         return (
-//           <ul>
-//             {pdd}
-//             <input className="form-control form-control-sm" type="text" placeholder="Add" ></input>
-//             <button type="button" className="btn btn-light mt-2">Create</button>
-//           </ul>
-//         )
-//       }
-//       const pd = project.data.map( (dt) =>
-//         <li key={dt._id}>
-//           {dt.headlineName}
-//           <Subhead sub={dt.subheadlines} />
-//         </li>
-//       )
-//       return pd;
-//     }
-//   }
-//   if(project == null){
-//     return <div> Loading Soon </div>
-//   }else{
-//     return (
-//       <div>
-//         <ul><ListHeadlines /></ul>
-//         <h6>Create New Headline</h6>
-//         <input className="form-control form-control-sm" type="text" placeholder="Add" ></input>
-//         <button type="button" className="btn btn-light mt-2">Create</button>
-//       </div>
-//     )
-//   }
-// }
-
-
 const ProjectPage = ({projectData}) => {
   const router = useRouter();
-  var { pid } = router.query;
+  const { pid } = router.query;
   const [project,handleProjectData] = useState(projectData);
+
+  async function UpdateData(){
+    var data = {
+      "pid" : pid,
+    }
+
+    console.log(data);
+    let response = await fetch("http://localhost:3000/api/project/projectbyid", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    let dt = await response.json();
+    console.log("Updating Project Data from UPDATE DATA IN INDEXJS");
+    handleProjectData(dt);
+  }
+
   return(
         <>
           <Navigationbar/>
@@ -72,7 +46,7 @@ const ProjectPage = ({projectData}) => {
             </div>
             <div className="row">
               <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                <Headline projectData={project} />
+                <Headline projectData={project} UpdateData={UpdateData}/>
               </div>
               <div className="col-sm-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                  Content
