@@ -26,6 +26,7 @@
     "react-dom": "16.13.1",
     "react-toastify": "^6.0.5",
     "slate": "^0.58.1",
+    "slate-history": "^0.58.3",
     "slate-react": "^0.58.2"
   },
   "devDependencies": {

@@ -100,57 +100,52 @@ export default function Home({ep}) {
   return (
     <>
     <Navigationbar />
-    <div className="container-fluid mt-3">
+    <div className="container">
       <div className="row">
-        <div className="col d-flex flex-column justify-content-center align-content-center">
-          <div className="row justify-content-center align-content-center">
-            <h6 className="title mt-2">
-              Create New Project
-              </h6>
-          </div>
-          <div className="row justify-content-center align-content-center">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group mt-2">
-                <input
-                  type="text"
-                  value={projectName}
-                  onChange={(e)=>handleProjectName(e.target.value)}
-                  placeholder="Project Name"
-                  >
-                </input>
-              </div>
-              <div className="form-group mt-2">
-                <input
-                  type="text"
-                  value={authorName}
-                  onChange={(e)=>handleAuthorName(e.target.value)}
-                  placeholder="Author Name">
-                </input>
-              </div>
-              <div className="form-group mt-2">
-                <textarea
-                  type="text"
-                  value={aboutProject}
-                  onChange={(e)=>handleAboutProject(e.target.value)}
-                  placeholder="About project">
-                </textarea>
-              </div>
-              <input type="submit" className="btn btn-primary mt-2 mb-4" value="Submit"></input>
-            </form>
-          </div>
-        </div>
-        <div className="col d-flex flex-column justify-content-center align-content-center">
-          <div className="row justify-content-center align-content-center">
-            <h6 className="title mt-2">
-            Edit Existing Project
-            </h6>
-          </div>
-          <div className="row justify-content-center align-content-center">
-            <ul>{listItems}</ul>
-          </div>
+        <div  className="col d-flex flex-column align-items-center">
+            <div className="mt-2">
+                <h4> Create New Project</h4>
+            </div>
+              <div className="mt-2">
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      value={projectName}
+                      onChange={(e)=>handleProjectName(e.target.value)}
+                      placeholder="Project Name"
+                      className="inputs"
+                      >
+                    </input>
+                  </div>
+                  <div className="form-group mt-2">
+                    <input
+                      type="text"
+                      value={authorName}
+                      onChange={(e)=>handleAuthorName(e.target.value)}
+                      className="inputs"
+                      placeholder="Author Name">
+                    </input>
+                  </div>
+                  <input type="submit" className="btn btn-primary mt-2 mb-4 inputsbutton" value="Submit"></input>
+                </form>
+            </div>
         </div>
       </div>
-      <div>
+    </div>
+    <div className="container">
+      <div className="row">
+        <div  className="col d-flex flex-column align-items-center">
+            <div className="mt-2">
+                <h4> Edit Existing Projects</h4>
+            </div>
+            <div className="mt-2">
+              <ul>{listItems}</ul>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div>
         <ToastContainer
           position="top-right"
           autoClose={2500}
@@ -163,18 +158,27 @@ export default function Home({ep}) {
           pauseOnHover
         />
       </div>
-    </div>
+  
     <style jsx>{`
+        input:focus {
+          outline:none;
+        }
+        .inputs{
+          background-color:'#f1e4e4';
+          border-width:0px 0px 1px 0px;
+          height:35px;
+          width:300px;
+          paddingLeft:15px;
+        }
+        .inputsbutton{
+          height:35px;
+          width:300px;
+        }
         .container{
           margin-top:20px;
         }
         .title{
           color:grey;
-        }
-        .col{
-          border-style:solid;
-          border-width:0.5px;
-          border-color:silver;
         }
     `}</style>
     </>

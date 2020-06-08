@@ -5,11 +5,17 @@ import Navigationbar from "../../../Component/Navigationbar"
 import { useState , useEffect} from "react";
 
 import Headline from './headline';
+import Content  from './Content';
+
 
 const ProjectPage = ({projectData}) => {
   const router = useRouter();
   const { pid } = router.query;
   const [project,handleProjectData] = useState(projectData);
+  const [selected,handleSelected] = useState({
+    hid:'',
+    shid:''
+  });
 
   async function UpdateData(){
     var data = {
@@ -29,6 +35,12 @@ const ProjectPage = ({projectData}) => {
     handleProjectData(dt);
   }
 
+  useEffect(() => {
+    if(projectData!=null && projectData.data != null && projectData.data.length>0 && projectData.data[0].subheadlines != null && projectData.data[0].subheadlines.length > 0){
+      handleSelected({hid:projectData.data[0]._id,shid:projectData.data[0].subheadlines[0]._id});
+    }
+  }, []);
+
   return(
         <>
           <Navigationbar/>
@@ -46,13 +58,10 @@ const ProjectPage = ({projectData}) => {
             </div>
             <div className="row">
               <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                <Headline projectData={project} UpdateData={UpdateData}/>
+                <Headline projectData={project} UpdateData={UpdateData} selected={selected}/>
               </div>
-              <div className="col-sm-7" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                 Content
-              </div>
-              <div className = "col-sm-2" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                Extra
+              <div className="col-sm-9" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+                 <Content selected={selected} />
               </div>
             </div>
           </div>
