@@ -24,6 +24,7 @@
     "react": "16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "16.13.1",
+    "react-lottie": "^1.2.3",
     "react-toastify": "^6.0.5",
     "slate": "^0.58.1",
     "slate-history": "^0.58.3",

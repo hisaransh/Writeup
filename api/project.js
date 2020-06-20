@@ -60,7 +60,8 @@ router.post('/project/newSubheadline', async(req,res) => {
   }
 
   let subdata = {
-    "subheadlineName" : subheadlineName
+    "subheadlineName" : subheadlineName,
+    "data":'[{"type":"paragraph","children":[{"text":"Start Here!!"}]}]'
   }
 
   try{

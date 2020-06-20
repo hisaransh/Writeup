@@ -18,7 +18,7 @@ export default function Home({ep}) {
   const [authorName,handleAuthorName] = useState('');
   const [aboutProject,handleAboutProject] = useState('');
   const [existingProjects,handleExisingProject] = useState(ep);
-  const [isLoading,handleisLoading] = useState(true);
+  const [isLoading,handleisLoading] = useState(false);
   const notifySuccess = () => toast.success("Project Created !");
 
   // Following function updates the edit project list
@@ -158,7 +158,7 @@ export default function Home({ep}) {
           pauseOnHover
         />
       </div>
-  
+
     <style jsx>{`
         input:focus {
           outline:none;
@@ -193,15 +193,15 @@ export async function getStaticProps(){
   return { props : {ep:data}};;
 }
 
-// export async function getStaticPaths() {
-//     let response = await fetch("http://localhost:3000/api/project");
-//     let data = await response.json();
-//
-//     // Get the paths we want to pre-render based on posts
-//     const paths = data.map(d => ({
-//         params: {pid: d._id,"project":"project"},
-//     }));
-//
-//     // We'll pre-render only these paths at build time.
-//     return {paths, fallback: false}
-// }
+export async function getStaticPaths() {
+    let response = await fetch("http://localhost:3000/api/project");
+    let data = await response.json();
+
+    // Get the paths we want to pre-render based on posts
+    const paths = data.map(d => ({
+        params: {pid: d._id,"project":"project"},
+    }));
+
+    // We'll pre-render only these paths at build time.
+    return {paths, fallback: false}
+}

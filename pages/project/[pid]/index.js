@@ -40,7 +40,7 @@ const ProjectPage = ({projectData}) => {
       handleSelected({hid:projectData.data[0]._id,shid:projectData.data[0].subheadlines[0]._id});
     }
   }, []);
-
+  console.log("selected",selected);
   return(
         <>
           <Navigationbar/>
@@ -61,7 +61,7 @@ const ProjectPage = ({projectData}) => {
                 <Headline projectData={project} UpdateData={UpdateData} selected={selected}/>
               </div>
               <div className="col-sm-9" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                 <Content selected={selected} />
+                 <Content projectData={project} selected={selected} />
               </div>
             </div>
           </div>
