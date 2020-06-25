@@ -6,16 +6,30 @@ import { ToastContainer, toast } from 'react-toastify';
 const apiURL = "http://localhost:3000/api/";
 
 
-const Subhead = ( {sub, UpdateData, headlineid, pid} ) => {
+const Subhead = ( {sub, UpdateData, headlineid, pid ,changeSubheadLine} ) => {
   const [subData,handleSubData] = useState(sub);
   const [newSubTitle,handleNewSubTitle] = useState('');
   const [projectPid,handleProjectPid] = useState(pid);
   const [headlineId,handleHeadlineId] = useState(headlineid);
   const notifySuccess = () => toast.success("Subheadline Added!");
 
+  function changeSub(para){
+    console.log(para);
+    changeSubheadLine(para);
+  }
+  const changeSub1 =  (e)=> {
+    if(e == null)
+      return;
+    var data = {
+      "hid": headlineId,
+      "shid": e
+    }
+    changeSub(data);
+  }
+
 
   const pdd = subData.map( (t) =>
-    <li key={t._id}>{t.subheadlineName} </li>
+    <li key={t._id} onClick={() => changeSub1(t._id)}>{t.subheadlineName}</li>
   )
 
   function addNewSubHeadline(){

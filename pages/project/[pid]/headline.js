@@ -7,10 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 const apiURL = "http://localhost:3000/api/";
 
 
-const Headline = ( {projectData,UpdateData} ) => {
+const Headline = ( {projectData,UpdateData,changeSubheadline} ) => {
   const [project,handleProjectData] = useState(projectData);
   const [newHeadlineTitle,handleNewHeadlineTitle] = useState('');
   const notifySuccess = () => toast.success("Headline Created !");
+  function changeSubheadlinefromheadline(para){
+    changeSubheadline(para);
+  }
+
   function ListHeadlines(){
     if(project == null || project.data == null)
       return (<div> Loading Soon </div>);
@@ -18,7 +22,7 @@ const Headline = ( {projectData,UpdateData} ) => {
       const pd = project.data.map( (dt) =>
         <li key={dt._id}>
           {dt.headlineName}
-          <Subhead sub={dt.subheadlines} pid={project._id} headlineid={dt._id} UpdateData = {UpdateData} />
+          <Subhead changeSubheadLine={changeSubheadlinefromheadline} sub={dt.subheadlines} pid={project._id} headlineid={dt._id} UpdateData = {UpdateData} />
         </li>
       )
       return pd;
@@ -54,12 +58,13 @@ const Headline = ( {projectData,UpdateData} ) => {
   }, [
     projectData,
   ]);
+
   if(project == null){
     return <div> Loading Soon </div>
   }else{
     return (
       <div>
-        <ul><ListHeadlines /></ul>
+        <ul><ListHeadlines  /></ul>
         <h6>Create New Headline</h6>
         <input className="form-control form-control-sm" type="text" placeholder="Add" value={newHeadlineTitle} onChange={(e)=>handleNewHeadlineTitle(e.target.value)} ></input>
         <button type="button" onClick={addNewHeadline} className="btn btn-light mt-2">Create</button>

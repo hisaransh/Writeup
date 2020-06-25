@@ -14,23 +14,8 @@ const Content = ({projectData,selected}) => {
 
   const [value, setValue] = useState(null)
 
-  useEffect( () => {
-    handleSelectedState(selected);
-  })
-  // useEffect( ()=>{
-  //   var x = localStorage.getItem('slate');
-  //   if(x === null){
-  //     setValue(JSON.parse('[{"type":"paragraph","children":[{"text":"Start Here!!"}]}]'));
-  //   }else{
-  //     x = JSON.parse(x);
-  //     setValue(x);
-  //   }
-  // },[])
-
-  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-  // console.log("SELECTED STATE",selectedState)
   function setContent(){
+    console.log("SET CONTENT with",selectedState);
     var subhead = projectContent.data.find( dt => dt._id == selectedState.hid);
     console.log("SH",subhead);
     if(subhead != null){
@@ -43,7 +28,19 @@ const Content = ({projectData,selected}) => {
 
   }
 
-  if(projectContent == null || selectedState == null || selectedState.pid == null || selectedState.shid == null)
+  useEffect( ()=> {
+    handleSelectedState(selected)
+    setContent();
+  },[selected])
+
+  function saveit(){
+
+  }
+
+  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+
+  if(projectContent == null || selectedState == null || selectedState.hid == null || selectedState.shid == null)
   {
     return <div>
       Please select Subheadline to view data
@@ -53,7 +50,8 @@ const Content = ({projectData,selected}) => {
   }else{
       return (
         <div>
-        <div style={{height:'100%',width:'100%',borderStyle:'solid',borderWidth:'1px'}}>
+        {selectedState.hid} {selectedState.shid}
+        <div style={{height:'100%',width:'100%'}}>
         <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
           <Editable
             renderLeaf={renderLeaf}
@@ -63,6 +61,7 @@ const Content = ({projectData,selected}) => {
           />
         </Slate>
         </div>
+        <button type="button" onClick={saveit} className="btn btn-light mt-2">Save</button>
         </div>
       )
   }

@@ -35,6 +35,10 @@ const ProjectPage = ({projectData}) => {
     handleProjectData(dt);
   }
 
+  function changeSubheadline(newSelected){
+    handleSelected(newSelected);
+  }
+
   useEffect(() => {
     if(projectData!=null && projectData.data != null && projectData.data.length>0 && projectData.data[0].subheadlines != null && projectData.data[0].subheadlines.length > 0){
       handleSelected({hid:projectData.data[0]._id,shid:projectData.data[0].subheadlines[0]._id});
@@ -58,10 +62,10 @@ const ProjectPage = ({projectData}) => {
             </div>
             <div className="row">
               <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                <Headline projectData={project} UpdateData={UpdateData} selected={selected}/>
+                <Headline projectData={project} UpdateData={UpdateData} selected={selected} changeSubheadline={changeSubheadline}/>
               </div>
               <div className="col-sm-9" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
-                 <Content projectData={project} selected={selected} />
+                 {selected.hid === ''&&selected.shid===''?(<div>Loading</div>):<Content projectData={project} selected={selected} />}
               </div>
             </div>
           </div>
