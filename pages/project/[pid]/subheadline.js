@@ -29,7 +29,7 @@ const Subhead = ( {sub, UpdateData, headlineid, pid ,changeSubheadLine} ) => {
 
 
   const pdd = subData.map( (t) =>
-    <li key={t._id} onClick={() => changeSub1(t._id)}>{t.subheadlineName}</li>
+    <li className="mt-1" key={t._id} onClick={() => changeSub1(t._id)}>{t.subheadlineName}</li>
   )
 
   function addNewSubHeadline(){
@@ -63,11 +63,16 @@ const Subhead = ( {sub, UpdateData, headlineid, pid ,changeSubheadLine} ) => {
   if(subData == null)
     return <div> </div>
   return (
-    <ul>
-      {pdd}
-
-      <input className="form-control form-control-sm" value={newSubTitle} onChange={(e)=>handleNewSubTitle(e.target.value)} type="text" placeholder="Add" ></input>
-      <button type="button" onClick={addNewSubHeadline} className="btn btn-light mt-2">Create</button>
+    <ul style={{listStyleType:'none'}}>
+      <div className="mb-2">
+        <div>
+          {pdd}
+        </div>
+        <div className="mt-2">
+        <input className="form-control form-control-sm" value={newSubTitle} onChange={(e)=>handleNewSubTitle(e.target.value)} type="text" placeholder="Add" ></input>
+        <button type="button" onClick={addNewSubHeadline} className="btn btn-light mt-2">Create</button>
+        </div>
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={2500}

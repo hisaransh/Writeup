@@ -30,16 +30,36 @@ const Content = ({projectData,selected}) => {
 
   useEffect( ()=> {
     handleSelectedState(selected)
-    setContent();
+    // setContent();
   },[selected])
+  useEffect( ()=> {
+    setContent();
+  },[selectedState])
 
   function saveit(){
-
+    const stringVal = JSON.stringify(value);
+    const data = {
+      "pid":projectContent._id,
+      "hid":selectedState.hid,
+      "shid":selectedState.shid,
+      "content": stringVal
+    }
+    fetch("http://localhost:3000/api/project/saveContent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(data)
+    }).then(response => response.json())
+    .then( (response)=>{
+      console.log(response);
+      console.log("saved");
+    })
   }
 
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-
+  console.log(JSON.stringify(value));
   if(projectContent == null || selectedState == null || selectedState.hid == null || selectedState.shid == null)
   {
     return <div>

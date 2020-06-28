@@ -48,23 +48,18 @@ const ProjectPage = ({projectData}) => {
   return(
         <>
           <Navigationbar/>
-          <div className="continer">
-            <div className="row">
-              <div className="col-3">
-              {project.projectName}
-              </div>
-              <div className="col-7">
-              {project.authorName}
-              </div>
-              <div className="col-2">
-              {(project.dateCreated)}
-              </div>
+          <div className="continer mt-2">
+            <div className="row align-items-center justify-content-center">
+              <h2>{project.projectName}</h2>
+            </div>
+            <div className="row align-items-center justify-content-center">
+              <h6>by @<u>{project.authorName}</u></h6>
             </div>
             <div className="row">
-              <div className="col-sm-3" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-4" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                 <Headline projectData={project} UpdateData={UpdateData} selected={selected} changeSubheadline={changeSubheadline}/>
               </div>
-              <div className="col-sm-9" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-8" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
                  {selected.hid === ''&&selected.shid===''?(<div>Loading</div>):<Content projectData={project} selected={selected} />}
               </div>
             </div>

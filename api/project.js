@@ -118,6 +118,49 @@ router.post('/project' , async (req,res) => {
   // })
 })
 
+router.post('/project/saveContent', async(req,res)=>{
+  if(req.body == null || req.body.pid==null || req.body.hid == null || req.body.shid == null || req.body.content == null)
+  {
+    res.json({message:"A data is NULL!!,please check."});
+    return;
+  }
+  console.log("API CALLED");
+  try{
+    const d = await Project.findById(req.body.pid);
+    if(d == null){
+      res.json({message : "Not found"})
+      return;
+    }
+    console.log(d);
+    const dt = d.data;
+    if(dt == null){
+      res.json({message : "Not found"})
+      return;
+    }
+    console.log(dt);
+    console.log("**************************");
+    const result = dt.find( t => t._id == req.body.hid );
+    if(result == null){
+      res.json({message : "Not found"})
+      return;
+    }
+    console.log(result);
+    console.log("$$$$$$$$$$$$$$$$$$$$$");
+    const sunheadlinesResult = result.subheadlines.find( x => x._id == req.body.shid);
+    if(sunheadlinesResult == null){
+      res.json({message : "Not found"})
+      return;
+    }
+    console.log(sunheadlinesResult);
+    console.log("-------------------------");
+    sunheadlinesResult.data = req.body.content;
+    const p = await d.save();
+    res.json({message:"Success"});
+  }catch(err){
+    res.json({message:err});
+  }
+})
+
 // router.get('/insidetemp',(req,res)=>{
 //   res.send("We are inside temp inside inside");
 // })
