@@ -22,7 +22,7 @@ const Headline = ( {projectData,UpdateData,changeSubheadline} ) => {
       const pd = project.data.map( (dt) =>
         <li key={dt._id}>
           <div className="border-bottom mb-2">
-            <div className="d-flex align-items-center"><h4>{dt.headlineName}</h4></div>
+            <div className="d-flex align-items-center"><h6>{dt.headlineName}</h6></div>
             <Subhead changeSubheadLine={changeSubheadlinefromheadline} sub={dt.subheadlines} pid={project._id} headlineid={dt._id} UpdateData = {UpdateData} />
           </div>
         </li>

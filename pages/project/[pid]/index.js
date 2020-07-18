@@ -48,7 +48,7 @@ const ProjectPage = ({projectData}) => {
   return(
         <>
           <Navigationbar/>
-          <div className="continer mt-2">
+          <div className="mt-2">
             <div className="row align-items-center justify-content-center">
               <h2>{project.projectName}</h2>
             </div>
@@ -56,10 +56,10 @@ const ProjectPage = ({projectData}) => {
               <h6>by @<u>{project.authorName}</u></h6>
             </div>
             <div className="row">
-              <div className="col-sm-4" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-3" >
                 <Headline projectData={project} UpdateData={UpdateData} selected={selected} changeSubheadline={changeSubheadline}/>
               </div>
-              <div className="col-sm-8" style={{borderWidth:'0.5px',borderColor:'silver',borderStyle:'solid'}}>
+              <div className="col-sm-9" >
                  {selected.hid === ''&&selected.shid===''?(<div>Loading</div>):<Content projectData={project} selected={selected} />}
               </div>
             </div>

@@ -11,7 +11,8 @@ const Content = ({projectData,selected}) => {
   const [projectContent,handleProjectContent] = useState(projectData);
   const [selectedState,handleSelectedState] = useState(selected);
   const [slateData,handleSlateData] = useState([]);
-
+  const [headlineName,setHeadlineName] = useState("");
+  const [subheadlineName,setSubheadlineName] = useState("");
   const [value, setValue] = useState(null)
 
   function setContent(){
@@ -19,8 +20,10 @@ const Content = ({projectData,selected}) => {
     var subhead = projectContent.data.find( dt => dt._id == selectedState.hid);
     console.log("SH",subhead);
     if(subhead != null){
+      setHeadlineName(subhead.headlineName);
       var subsubhead = subhead.subheadlines.find( xt => xt._id == selectedState.shid);
       if(subsubhead != null){
+          setSubheadlineName(subsubhead.subheadlineName);
           console.log("real data",JSON.parse(subsubhead.data));
           setValue(JSON.parse(subsubhead.data));
       }
@@ -69,9 +72,18 @@ const Content = ({projectData,selected}) => {
     return(<div>NULL</div>)
   }else{
       return (
-        <div>
-        {selectedState.hid} {selectedState.shid}
-        <div style={{height:'100%',width:'100%'}}>
+        <div className="mt-2">
+        <div style={{borderBottom:'2px'}}>
+          <h2>
+            {headlineName}
+          </h2>
+          <div className="mt-2 ml-2">
+          <h5>
+            {subheadlineName}
+          </h5>
+        </div>
+        </div>
+        <div className="mt-3 ml-2" style={{height:'100%',width:'100%'}}>
         <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
           <Editable
             renderLeaf={renderLeaf}
@@ -81,7 +93,7 @@ const Content = ({projectData,selected}) => {
           />
         </Slate>
         </div>
-        <button type="button" onClick={saveit} className="btn btn-light mt-2">Save</button>
+        <button className="ml-2" type="button" onClick={saveit} className="btn btn-light mt-2">Save</button>
         </div>
       )
   }

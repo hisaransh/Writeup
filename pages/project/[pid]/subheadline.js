@@ -29,7 +29,7 @@ const Subhead = ( {sub, UpdateData, headlineid, pid ,changeSubheadLine} ) => {
 
 
   const pdd = subData.map( (t) =>
-    <li className="mt-1" key={t._id} onClick={() => changeSub1(t._id)}>{t.subheadlineName}</li>
+    <li className="mt-1" key={t._id} style={{cursor:'pointer'}} onClick={() => changeSub1(t._id)}>{t.subheadlineName}</li>
   )
 
   function addNewSubHeadline(){
@@ -84,6 +84,9 @@ const Subhead = ( {sub, UpdateData, headlineid, pid ,changeSubheadLine} ) => {
         draggable
         pauseOnHover
       />
+      <style jsx>{`
+
+      `}</style>
     </ul>
   )
 }
