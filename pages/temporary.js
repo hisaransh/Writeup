@@ -1,124 +1,106 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { useEffect, useMemo, useState ,useCallback} from "react";
-// Import the Slate editor factory.
-import { createEditor,Editor,Transforms ,Text} from 'slate'
 
-// Import the Slate components and React plugin.
-import { Slate, Editable, withReact  } from 'slate-react'
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
+import { Slate, Editable, ReactEditor, withReact, useSlate } from 'slate-react'
+import { Editor, Transforms, Text, createEditor } from 'slate'
+import { withHistory } from 'slate-history'
 
-const CustomEditor = {
-  isBoldMarkActive(editor) {
-    const [match] = Editor.nodes(editor, {
-      match: n => n.bold === true,
-      universal: true,
-    })
-
-    return !!match
-  },
-
-  isCodeBlockActive(editor) {
-    const [match] = Editor.nodes(editor, {
-      match: n => n.type === 'code',
-    })
-
-    return !!match
-  },
-
-  toggleBoldMark(editor) {
-    const isActive = CustomEditor.isBoldMarkActive(editor)
-    Transforms.setNodes(
-      editor,
-      { bold: isActive ? null : true },
-      { match: n => Text.isText(n), split: true }
+const Values = ({data}) =>{
+  const [val,setval] = useState(data);
+  console.log(val);
+  useEffect( ()=> {
+    setval(data);
+  })
+  if(val!=null)
+  {
+    return(
+      <div>
+        <h3>{val}</h3>
+      </div>
     )
-  },
-
-  toggleCodeBlock(editor) {
-    const isActive = CustomEditor.isCodeBlockActive(editor)
-    Transforms.setNodes(
-      editor,
-      { type: isActive ? null : 'code' },
-      { match: n => Editor.isBlock(editor, n) }
+  }else{
+    return(
+      <div>
+        <h3>NULL</h3>
+      </div>
     )
-  },
+  }
+
 }
 
-const App = () => {
-  const editor = useMemo(() => withReact(createEditor()), [])
-  const [value, setValue] = useState([
-    {
-      type: 'paragraph',
-      children: [{ text: 'A line of text in a paragraph.' }],
-    },
-  ])
-
-  const renderElement = useCallback(props => {
-    switch (props.element.type) {
-      case 'code':
-        return <CodeElement {...props} />
-      default:
-        return <DefaultElement {...props} />
-    }
-  }, [])
-
-  const renderLeaf = useCallback(props => {
-    return <Leaf {...props} />
-  }, [])
-
-  return (
-    <div style={{backgroundColor:'aqua',borderColor:'silver',borderSize:'0px',borderStyle:'solid'}}>
-    <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        onKeyDown={event => {
-          if (!event.ctrlKey) {
-            return
-          }
-
-          // Replace the `onKeyDown` logic with our new commands.
-          switch (event.key) {
-            case '`': {
-              event.preventDefault()
-              CustomEditor.toggleCodeBlock(editor)
-              break
-            }
-
-            case 'b': {
-              event.preventDefault()
-              CustomEditor.toggleBoldMark(editor)
-              break
-            }
-          }
-        }}
-      />
-    </Slate>
+const App = () =>{
+  const [valapp,handlevalapp] = useState(0);
+  function change(){
+    handlevalapp(50);
+  }
+  return(
+    <div>
+        <Values data={valapp}/>
+        <button type="button" onClick={(prev)=>handle} className="btn btn-light mt-2">Change</button>
     </div>
   )
 }
 
-const Leaf = props => {
-  return (
-    <span
-      {...props.attributes}
-      style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
-    >
-      {props.children}
-    </span>
-  )
-}
-
-const CodeElement = props => {
-  return (
-    <pre {...props.attributes}>
-      <code>{props.children}</code>
-    </pre>
-  )
-}
-
-const DefaultElement = props => {
-  return <p {...props.attributes}>{props.children}</p>
-}
+// const App = () => {
+//
+//   // const renderElement = useCallback(props => <Element {...props} />, [])
+//   const [value, setValue] = useState(null)
+//   const Saveit = () => {
+//     var x = JSON.stringify(value)
+//     localStorage.setItem('slate',x);
+//   }
+//   useEffect( ()=>{
+//     var x = localStorage.getItem('slate');
+//     if(x === null){
+//       setValue(JSON.parse('[{"type":"paragraph","children":[{"text":"Start Here!!"}]}]'));
+//     }else{
+//       x = JSON.parse(x);
+//       setValue(x);
+//     }
+//   },[])
+//   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+//   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+//   if(value == null){
+//     return(<div>NULL</div>)
+//   }else{
+//     return(
+//       <div>
+//       <div style={{height:'100%',width:'100%',borderStyle:'solid',borderWidth:'1px'}}>
+//       <Slate editor={editor} value={value} onChange={newValue => setValue(newValue)}>
+//         <Editable
+//           renderLeaf={renderLeaf}
+//           placeholder="Enter some rich text…"
+//           spellCheck
+//           autoFocus
+//         />
+//       </Slate>
+//       </div>
+//         <button type="button" onClick={Saveit} className="btn btn-light mt-2">Save</button>
+//       </div>
+//     )
+//   }
+//
+// }
+//
+// const Leaf = ({ attributes, children, leaf }) => {
+//   if (leaf.bold) {
+//     children = <strong>{children}</strong>
+//   }
+//
+//   if (leaf.code) {
+//     children = <code>{children}</code>
+//   }
+//
+//   if (leaf.italic) {
+//     children = <em>{children}</em>
+//   }
+//
+//   if (leaf.underline) {
+//     children = <u>{children}</u>
+//   }
+//
+//   return <span {...attributes}>{children}</span>
+// }
 
 export default App;
